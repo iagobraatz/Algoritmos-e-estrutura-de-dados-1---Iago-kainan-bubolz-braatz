@@ -9,8 +9,8 @@ void remover(char*** nomes, int* qtd, const char* nome);
 void listar(char** nomes, int qtd);
 
 int main() {
-    char** nomes = NULL;  // vetor de strings
-    int qtd = 0;          // quantidade de nomes
+    char** nomes = NULL;  
+    int qtd = 0;          
     int opcao;
     char nome[100];
 
@@ -22,13 +22,13 @@ int main() {
         printf("4. Sair\n");
         printf("Escolha: ");
         scanf("%d", &opcao);
-        getchar(); // limpa o enter
+        getchar(); 
 
         switch (opcao) {
             case 1:
                 printf("Nome: ");
                 fgets(nome, sizeof(nome), stdin);
-                nome[strcspn(nome, "\n")] = '\0'; // tira \n
+                nome[strcspn(nome, "\n")] = '\0'; 
                 adicionar(&nomes, &qtd, nome);
                 break;
 
@@ -51,7 +51,7 @@ int main() {
         }
     } while (opcao != 4);
 
-    // libera memória
+    
     for (int i = 0; i < qtd; i++) {
         free(nomes[i]);
     }
