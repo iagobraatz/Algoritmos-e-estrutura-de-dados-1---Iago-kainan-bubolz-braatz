@@ -4,93 +4,94 @@
 #include <stdlib.h>
 #include <string.h>
 
-void adicionar(char*** nomes, int* qtd, const char* nome);
-void remover(char*** nomes, int* qtd, const char* nome);
-void listar(char** nomes, int qtd);
+char *nomes = NULL;
+int tamanho = 0;
 
-int main() {
-    char** nomes = NULL;  
-    int qtd = 0;          
-    int opcao;
-    char nome[100];
+void AdicionarNome() {
+    char buffer[100];
+    int i, j;
 
-    do {
-        printf("\n--- MENU ---\n");
-        printf("1. Adicionar nome\n");
-        printf("2. Remover nome\n");
-        printf("3. Listar nomes\n");
-        printf("4. Sair\n");
-        printf("Escolha: ");
-        scanf("%d", &opcao);
-        getchar(); 
+    printf("Digite o nome para adicionar: ");
+    scanf(" %[^\n]", buffer);
 
-        switch (opcao) {
-            case 1:
-                printf("Nome: ");
-                fgets(nome, sizeof(nome), stdin);
-                nome[strcspn(nome, "\n")] = '\0'; 
-                adicionar(&nomes, &qtd, nome);
-                break;
+    int cont = 0;
+    while(buffer[cont] != '\0') cont++;
 
-            case 2:
-                printf("Nome para remover: ");
-                fgets(nome, sizeof(nome), stdin);
-                nome[strcspn(nome, "\n")] = '\0';
-                remover(&nomes, &qtd, nome);
-                break;
+    nomes = realloc(nomes, tamanho + cont + 2);
 
-            case 3:
-                listar(nomes, qtd);
-                break;
-
-            case 4:
-                break;
-
-            default:
-                printf("Opção inválida.\n");
-        }
-    } while (opcao != 4);
-
-    
-    for (int i = 0; i < qtd; i++) {
-        free(nomes[i]);
+    if(tamanho == 0) {
+        for(i = 0; i < cont; i++) nomes[i] = buffer[i];
+        nomes[cont] = '\0';
+        tamanho = cont;
+    } else {
+        nomes[tamanho] = ' ';
+        for(i = 0; i < cont; i++) nomes[tamanho + 1 + i] = buffer[i];
+        nomes[tamanho + 1 + cont] = '\0';
+        tamanho += cont + 1;
     }
-    free(nomes);
-
-    return 0;
 }
 
-void adicionar(char*** nomes, int* qtd, const char* nome) {
-    *nomes = realloc(*nomes, (*qtd + 1) * sizeof(char*));
-    (*nomes)[*qtd] = malloc(strlen(nome) + 1);
-    strcpy((*nomes)[*qtd], nome);
-    (*qtd)++;
-}
+void RemoverNome() {
+    if(tamanho == 0) {
+        printf("Lista vazia!\n");
+        return;
+    }
 
-void remover(char*** nomes, int* qtd, const char* nome) {
-    for (int i = 0; i < *qtd; i++) {
-        if (strcmp((*nomes)[i], nome) == 0) {
-            free((*nomes)[i]);
-            for (int j = i; j < *qtd - 1; j++) {
-                (*nomes)[j] = (*nomes)[j + 1];
+    char buffer[100];
+    int i, j, k;
+
+    printf("Digite o nome para remover: ");
+    scanf(" %[^\n]", buffer);
+
+    int cont = 0;
+    while(buffer[cont] != '\0') cont++;
+
+    for(i = 0; i <= tamanho - cont; i++) {
+        int igual = 1;
+        for(j = 0; j < cont; j++) {
+            if(nomes[i+j] != buffer[j]) {
+                igual = 0;
+                break;
             }
-            (*qtd)--;
-            *nomes = realloc(*nomes, (*qtd) * sizeof(char*));
+        }
+        if(igual) {
+            for(k = i; k < tamanho - cont; k++) nomes[k] = nomes[k + cont + 1];
+            tamanho -= cont + 1;
+            nomes = realloc(nomes, tamanho + 1);
+            nomes[tamanho] = '\0';
             printf("Nome removido.\n");
             return;
         }
     }
+
     printf("Nome não encontrado.\n");
 }
 
-void listar(char** nomes, int qtd) {
-    if (qtd == 0) {
+void ListarNomes() {
+    if(tamanho == 0) {
         printf("Lista vazia.\n");
-        return;
+    } else {
+        for(int i = 0; i < tamanho; i++) printf("%c", nomes[i]);
+        printf("\n");
     }
+}
 
-    printf("\n--- Lista de nomes ---\n");
-    for (int i = 0; i < qtd; i++) {
-        printf("%d. %s\n", i + 1, nomes[i]);
-    }
+int main() {
+    int opcao;
+
+    do {
+        printf("\nMenu:\n1) Adicionar nome\n2) Remover nome\n3) Listar\n4) Sair\nEscolha: ");
+        scanf("%d", &opcao);
+
+        switch(opcao) {
+            case 1: AdicionarNome(); break;
+            case 2: RemoverNome(); break;
+            case 3: ListarNomes(); break;
+            case 4: break;
+            default: printf("Opção inválida!\n"); break;
+        }
+    } while(opcao != 4);
+
+    free(nomes);
+    return 0;
 }
