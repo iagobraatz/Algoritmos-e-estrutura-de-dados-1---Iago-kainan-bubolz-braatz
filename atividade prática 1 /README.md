@@ -33,6 +33,8 @@ flowerbed[i] is 0 or 1.
 There are no two adjacent flowers in flowerbed.
 0 <= n <= flowerbed.length
 
+A principal dificuldade que tive no exercício foi com a lógica de posicionamento, garantir que, ao adicionar uma nova flor, ela realmente ocupasse a posição correta e respeitasse o espaçamento necessário entre as outras.
+
 Testes feitos:                                                                                                                                                                                                   
 Entrada	       n	 Saída                                                                                                                                                                                            
 [1,0,0,0,1]	   1	 true	                                                                                                                                                                                           
