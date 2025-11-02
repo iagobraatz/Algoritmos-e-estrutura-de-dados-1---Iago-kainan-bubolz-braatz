@@ -34,11 +34,11 @@ There are no two adjacent flowers in flowerbed.
 0 <= n <= flowerbed.length
 
 Testes feitos:                                                                                                                                                                                                   
-Entrada	      n	 Saída                                                                                                                                                                                            
-[1,0,0,0,1]	  1	 true	                                                                                                                                                                                           
-[1,0,0,0,1]	  2  false	                                                                                                                                                                                            
-[0,0,0,0,0] 	 2	 true                                                                                                                                                                                                
-[1,0,0,0,0,1]	2	 false	      
+Entrada	       n	 Saída                                                                                                                                                                                            
+[1,0,0,0,1]	   1	 true	                                                                                                                                                                                           
+[1,0,0,0,1]	   2  false	                                                                                                                                                                                            
+[0,0,0,0,0] 	  2	 true                                                                                                                                                                                               
+[1,0,0,0,0,1]	 2	 false	      
 
 ## Realização do exercício:
 [Can Place Flowers - Iago Kainan Bubolz Braatz](https://leetcode.com/problems/can-place-flowers/submissions/1817145158)
