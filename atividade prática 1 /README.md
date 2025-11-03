@@ -10,6 +10,8 @@
  
 **Instituição de Ensino: Universidade Federal de Pelotas**
 
+**Exercicio finalizado em aula**
+
 # Exercício: LeetCode: 605. Can Place Flowers
 
 ## Descrição do Exercício:
