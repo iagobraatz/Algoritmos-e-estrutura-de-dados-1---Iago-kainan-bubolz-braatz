@@ -1,235 +1,170 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-#include <ctype.h>
+#include <string.h>
 
-#define TAM_NOME (100 * sizeof(char))
-#define TAM_EMAIL (100 * sizeof(char))
-#define TAM_IDADE (sizeof(int))
-#define PESSOA (TAM_NOME + TAM_EMAIL + TAM_IDADE)
+#define TAM_NOME 100
+#define TAM_EMAIL 100
+#define TAM_PESSOA (TAM_NOME + sizeof(int) + TAM_EMAIL)
 
 int main() {
-    void *pBuffer = malloc(sizeof(int) * 3); 
-    void *menu = pBuffer;
-    void *qtde = (char *)pBuffer + sizeof(int);
-    void *i = (char *)pBuffer + sizeof(int) * 2;
+    void *pBuffer = malloc(sizeof(int)*4 + TAM_NOME);
+    if (!pBuffer) return 1;
 
-    void *aux = NULL;
-    void *comecoPessoa = NULL;
-    void *incrementador = NULL;
-    void *final = NULL;
-    void *atual = NULL;
-    void *temp = NULL;
-
-    *(int *)menu = 0;
-    *(int *)qtde = 0;
-    *(int *)i = 0;
+    // Inicialização
+    // [0-3]: opção do menu
+    // [4-7]: contador de pessoas  
+    // [8-11]: índice para loops
+    // [12-15]: flag de encontrou (0 = não, 1 = sim)
+    *(int*)(pBuffer + 0) = 0;
+    *(int*)(pBuffer + 4) = 0;
+    *(int*)(pBuffer + 8) = 0;
+    *(int*)(pBuffer + 12) = 0;
 
     while (1) {
-        printf("\n- - - - M E N U - - - -");
-        printf("\n1. ADICIONAR PESSOA");
-        printf("\n2.REMOVER PESSOA");
-        printf("\n3.BUSCAR PESSOA");
-        printf("\n4.LISTAR TUDO");
-        printf("\n5.SAIR");
-        printf("\n- - - - - - - - - - - -\n");
+        printf("------------------------\n");
+        printf("MENU:\n");
+        printf("1- Adicionar Pessoa\n");
+        printf("2- Remover Pessoa\n");
+        printf("3- Buscar Pessoa\n");
+        printf("4- Listar Todos\n");
+        printf("5- Sair\n");
+        printf("Digite o numero da opcao: ");
 
-        printf("\nDigite o numero da opcao desejada : ");
-        scanf("%d", (int *)menu);
+        scanf("%d", (int*)(pBuffer + 0));
         getchar();
 
-        switch (*(int *)menu) {
+        switch (*(int*)(pBuffer + 0)) {
+
+        case 1: {
+            // Adicionar nova pessoa
+            *(int*)(pBuffer + 4) += 1;
+            pBuffer = realloc(pBuffer, sizeof(int)*4 + TAM_NOME + TAM_PESSOA * (*(int*)(pBuffer + 4)));
+            if (!pBuffer) return 1;
+
+            // Calcula a posição direta para a nova pessoa
+            char *novaPessoa = (char*)pBuffer + 16 + TAM_NOME + TAM_PESSOA * (*(int*)(pBuffer + 4) - 1);
             
-            case 1:
-    pBuffer = realloc(pBuffer, (sizeof(int) * 3) + PESSOA * (*(int *)qtde) + TAM_NOME);
-    menu = pBuffer;
-    qtde = (char *)pBuffer + sizeof(int);
-    i = (char *)pBuffer + sizeof(int) * 2;
+            // Ler dados diretamente na posição final
+            printf("Nome: ");
+            fgets(novaPessoa, TAM_NOME, stdin);
+            novaPessoa[strcspn(novaPessoa, "\n")] = 0;
 
-    incrementador = (char *)pBuffer + sizeof(int) * 3 + (PESSOA * (*(int *)qtde));
+            printf("Idade: ");
+            scanf("%d", (int*)(novaPessoa + TAM_NOME));
+            getchar();
 
-    printf("NOME: ");
-    fgets((char *)incrementador, TAM_NOME, stdin);
-    ((char *)incrementador)[strcspn((char *)incrementador, "\n")] = 0;
-
-    if (*(int *)qtde > 0) {
-        comecoPessoa = (char *)pBuffer + sizeof(int) * 3;
-        atual = comecoPessoa;
-
-        for (*(int *)i = 0; *(int *)i < *(int *)qtde; (*(int *)i)++) {
-            if (strcmp((char *)atual, (char *)incrementador) == 0) {
-                printf("Erro: ja existe uma pessoa com esse nome!\n");
-                pBuffer = realloc(pBuffer, (sizeof(int) * 3) + PESSOA * (*(int *)qtde));
-                menu = pBuffer;
-                qtde = (char *)pBuffer + sizeof(int);
-                i = (char *)pBuffer + sizeof(int) * 2;
-                break;
-            }
-            atual = (char *)atual + PESSOA;
+            printf("Email: ");
+            fgets(novaPessoa + TAM_NOME + sizeof(int), TAM_EMAIL, stdin);
+            (novaPessoa + TAM_NOME + sizeof(int))[strcspn(novaPessoa + TAM_NOME + sizeof(int), "\n")] = 0;
+            
+            printf("Pessoa adicionada com sucesso!\n");
+            break;
         }
 
-        if (*(int *)i != *(int *)qtde) break;
-    }
+        case 2: {
+            // Remover pessoa
+            if (*(int*)(pBuffer + 4) == 0) {
+                printf("Agenda vazia!\n");
+                break;
+            }
 
-    (*(int *)qtde)++;
+            printf("Nome para remover: ");
+            fgets((char*)pBuffer + 16, TAM_NOME, stdin);
+            ((char*)pBuffer + 16)[strcspn((char*)pBuffer + 16, "\n")] = 0;
 
-    pBuffer = realloc(pBuffer, (sizeof(int) * 3) + PESSOA * (*(int *)qtde));
-    menu = pBuffer;
-    qtde = (char *)pBuffer + sizeof(int);
-    i = (char *)pBuffer + sizeof(int) * 2;
-
-    temp = (char *)pBuffer + sizeof(int) * 3 + PESSOA * (*(int *)qtde - 1);
-
-    strcpy((char *)temp, (char *)incrementador);
-
-    printf("IDADE: ");
-    scanf("%d", (int *)(temp + TAM_NOME));
-    getchar();
-
-    printf("EMAIL: ");
-    fgets((char *)(temp + TAM_NOME + TAM_IDADE), TAM_EMAIL, stdin);
-    ((char *)(temp + TAM_NOME + TAM_IDADE))[strcspn((char *)(temp + TAM_NOME + TAM_IDADE), "\n")] = 0;
-
-    printf("Pessoa adicionada com sucesso!\n");
-    break;
-
-
-            case 2:
-                if (*(int *)qtde == 0) {
-                    printf("Agenda vazia!\n");
+            *(int*)(pBuffer + 8) = 0;
+            *(int*)(pBuffer + 12) = 0; // flag encontrou = 0
+            
+            while (*(int*)(pBuffer + 8) < *(int*)(pBuffer + 4)) {
+                char *pessoaAtual = (char*)pBuffer + 16 + TAM_NOME + TAM_PESSOA * (*(int*)(pBuffer + 8));
+                
+                if (strcmp((char*)pBuffer + 16, pessoaAtual) == 0) {
+                    // Encontrou a pessoa para remover
+                    if (*(int*)(pBuffer + 4) > 1 && *(int*)(pBuffer + 8) != *(int*)(pBuffer + 4) - 1) {
+                        // Substituir pela última pessoa (se não for a última)
+                        char *ultimaPessoa = (char*)pBuffer + 16 + TAM_NOME + TAM_PESSOA * (*(int*)(pBuffer + 4) - 1);
+                        memcpy(pessoaAtual, ultimaPessoa, TAM_PESSOA);
+                    }
+                    
+                    *(int*)(pBuffer + 4) -= 1;
+                    pBuffer = realloc(pBuffer, sizeof(int)*4 + TAM_NOME + TAM_PESSOA * (*(int*)(pBuffer + 4)));
+                    printf("Pessoa removida!\n");
+                    *(int*)(pBuffer + 12) = 1; // flag encontrou = 1
                     break;
                 }
+                *(int*)(pBuffer + 8) += 1;
+            }
 
-                printf("REMOVER NOME: ");
-                pBuffer = realloc(pBuffer, (sizeof(int) * 3) + PESSOA * (*(int *)qtde) + TAM_NOME);
-                menu = pBuffer;
-                qtde = (char *)pBuffer + sizeof(int);
-                i = (char *)pBuffer + sizeof(int) * 2;
+            if (*(int*)(pBuffer + 12) == 0)
+                printf("Pessoa nao encontrada!\n");
+            break;
+        }
 
-                comecoPessoa = (char *)pBuffer + sizeof(int) * 3;
-                atual = comecoPessoa;
-                incrementador = (char *)pBuffer + sizeof(int) * 3 + (PESSOA * (*(int *)qtde));
-
-                fgets((char *)incrementador, TAM_NOME, stdin);
-                ((char *)incrementador)[strcspn((char *)incrementador, "\n")] = 0;
-
-                temp = NULL;
-                for (*(int *)i = 0; *(int *)i < *(int *)qtde; (*(int *)i)++) {
-                    if (strcmp((char *)incrementador, (char *)atual) == 0) {
-                        temp = atual;
-                        break;
-                    }
-                    atual = (char *)atual + PESSOA;
-                }
-
-                if (temp == NULL) {
-                    printf("Pessoa nao encontrada!\n");
-                } else {
-                    if (*(int *)qtde > 1) {
-                        aux = malloc(PESSOA);
-                        incrementador = (char *)pBuffer + sizeof(int) * 3 + PESSOA * (*(int *)qtde - 1);
-                        memcpy(aux, incrementador, PESSOA);
-                        memcpy(temp, aux, PESSOA);
-                        free(aux);
-                    }
-
-                    (*(int *)qtde)--;
-                    pBuffer = realloc(pBuffer, (sizeof(int) * 3) + PESSOA * (*(int *)qtde));
-                    menu = pBuffer;
-                    qtde = (char *)pBuffer + sizeof(int);
-                    i = (char *)pBuffer + sizeof(int) * 2;
-                    printf("Pessoa removida com sucesso!\n");
-                }
+        case 3: {
+            // Buscar pessoa
+            if (*(int*)(pBuffer + 4) == 0) {
+                printf("Agenda vazia!\n");
                 break;
+            }
 
-            case 3:
-                if (*(int *)qtde == 0) {
-                    printf("Agenda vazia!\n");
+            printf("Nome para buscar: ");
+            fgets((char*)pBuffer + 16, TAM_NOME, stdin);
+            ((char*)pBuffer + 16)[strcspn((char*)pBuffer + 16, "\n")] = 0;
+
+            *(int*)(pBuffer + 8) = 0;
+            *(int*)(pBuffer + 12) = 0; // flag encontrou = 0
+            
+            while (*(int*)(pBuffer + 8) < *(int*)(pBuffer + 4)) {
+                char *pessoaAtual = (char*)pBuffer + 16 + TAM_NOME + TAM_PESSOA * (*(int*)(pBuffer + 8));
+                
+                if (strcmp((char*)pBuffer + 16, pessoaAtual) == 0) {
+                    printf("\n--- Pessoa Encontrada ---\n");
+                    printf("Nome: %s\n", pessoaAtual);
+                    printf("Idade: %d\n", *(int*)(pessoaAtual + TAM_NOME));
+                    printf("Email: %s\n", pessoaAtual + TAM_NOME + sizeof(int));
+                    printf("-----------------------\n");
+                    *(int*)(pBuffer + 12) = 1; // flag encontrou = 1
                     break;
                 }
+                *(int*)(pBuffer + 8) += 1;
+            }
 
-                printf("BUSCAR NOME: ");
-                pBuffer = realloc(pBuffer, (sizeof(int) * 3) + PESSOA * (*(int *)qtde) + TAM_NOME);
-                menu = pBuffer;
-                qtde = (char *)pBuffer + sizeof(int);
-                i = (char *)pBuffer + sizeof(int) * 2;
+            if (*(int*)(pBuffer + 12) == 0)
+                printf("Pessoa nao encontrada!\n");
+            break;
+        }
 
-                comecoPessoa = (char *)pBuffer + sizeof(int) * 3;
-                atual = comecoPessoa;
-                incrementador = (char *)pBuffer + sizeof(int) * 3 + (PESSOA * (*(int *)qtde));
-
-                fgets((char *)incrementador, TAM_NOME, stdin);
-                ((char *)incrementador)[strcspn((char *)incrementador, "\n")] = 0;
-
-                temp = NULL;
-                for (*(int *)i = 0; *(int *)i < *(int *)qtde; (*(int *)i)++) {
-                    if (strcmp((char *)incrementador, (char *)atual) == 0) {
-                        temp = atual;
-                        break;
-                    }
-                    atual = (char *)atual + PESSOA;
-                }
-
-                if (temp == NULL) {
-                    printf("Pessoa nao encontrada!\n");
-                } else {
-                    printf("\n- - - - I N F O - - - -\n");
-                    printf("NOME:\t%s\n", (char *)temp);
-                    printf("IDADE:\t%d\n", *(int *)((char *)temp + TAM_NOME));
-                    printf("EMAIL:\t%s\n", (char *)((char *)temp + TAM_NOME + TAM_IDADE));
-                    printf("- - - - - - - - - - - -\n");
-                }
-
-                pBuffer = realloc(pBuffer, (sizeof(int) * 3) + PESSOA * (*(int *)qtde));
-                menu = pBuffer;
-                qtde = (char *)pBuffer + sizeof(int);
-                i = (char *)pBuffer + sizeof(int) * 2;
+        case 4: {
+            // Listar todas as pessoas
+            if (*(int*)(pBuffer + 4) == 0) {
+                printf("Agenda vazia!\n");
                 break;
+            }
 
-            case 4:
-                if (*(int *)qtde == 0) {
-                    printf("- - - - - - - - - - - -\n");
-                    printf("Agenda Vazia!!!");
-                    printf("\n- - - - - - - - - - - -\n");
-                    break;
-                }
+            printf("\n--- Lista de Pessoas ---\n");
+            *(int*)(pBuffer + 8) = 0;
+            
+            while (*(int*)(pBuffer + 8) < *(int*)(pBuffer + 4)) {
+                char *pessoaAtual = (char*)pBuffer + 16 + TAM_NOME + TAM_PESSOA * (*(int*)(pBuffer + 8));
+                
+                printf("Pessoa %d:\n", *(int*)(pBuffer + 8) + 1);
+                printf("  Nome: %s\n", pessoaAtual);
+                printf("  Idade: %d\n", *(int*)(pessoaAtual + TAM_NOME));
+                printf("  Email: %s\n", pessoaAtual + TAM_NOME + sizeof(int));
+                printf("\n");
+                
+                *(int*)(pBuffer + 8) += 1;
+            }
+            printf("-----------------------\n");
+            break;
+        }
 
-                pBuffer = realloc(pBuffer, (sizeof(int) * 4) + PESSOA * (*(int *)qtde));
-                menu = pBuffer;
-                qtde = (char *)pBuffer + sizeof(int);
-                i = (char *)pBuffer + sizeof(int) * 2;
-                final = (char *)pBuffer + sizeof(int) * 3 + PESSOA * (*(int *)qtde);
+        case 5:
+            free(pBuffer);
+            return 0;
 
-                *(int *)final = *(int *)qtde;
-
-                comecoPessoa = (char *)pBuffer + sizeof(int) * 3;
-                incrementador = comecoPessoa;
-
-                while ((*(int *)final) > 0) {
-                    printf("- - - - - - - - - - - -\n");
-                    printf("NOME:\t%s\n", (char *)incrementador);
-                    printf("IDADE:\t%d\n", *(int *)((char *)incrementador + TAM_NOME));
-                    printf("EMAIL:\t%s\n", (char *)((char *)incrementador + TAM_NOME + TAM_IDADE));
-                    printf("- - - - - - - - - - - -\n");
-                    incrementador = (char *)incrementador + PESSOA;
-                    (*(int *)final)--;
-                }
-
-                pBuffer = realloc(pBuffer, (sizeof(int) * 3) + PESSOA * (*(int *)qtde));
-                menu = pBuffer;
-                qtde = (char *)pBuffer + sizeof(int);
-                i = (char *)pBuffer + sizeof(int) * 2;
-                break;
-
-            case 5:
-                free(pBuffer);
-                exit(0);
-                break;
-
-            default:
-                printf("Opcao invalida!\n");
-                break;
+        default:
+            printf("Opcao invalida!\n");
         }
     }
 }
-//iago kainan bubolz braatz
