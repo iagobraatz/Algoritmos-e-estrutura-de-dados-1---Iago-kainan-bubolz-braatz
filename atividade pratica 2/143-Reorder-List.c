@@ -1,7 +1,5 @@
 //Iago Kainan Bubolz Braatz - Trabalho prático 2 - AED1 - M2 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -24,7 +22,7 @@ void reorderList(struct ListNode* head) {
     struct ListNode* atual = p_1->next;
     struct ListNode* prox;
 
-    while (atual) {
+    while (atual!=NULL) {
         prox = atual->next;
         atual->next = antes;
         antes = atual;
