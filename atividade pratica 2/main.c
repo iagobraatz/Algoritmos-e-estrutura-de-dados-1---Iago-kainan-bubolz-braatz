@@ -1,4 +1,4 @@
-//Iago Kainan Bubolz Braatz - Trabalho prático 2 - AED1 - M2 
+//Iago Kainan Bubolz Braatz - Trabalho prático AED1 - M2 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -78,6 +78,17 @@ void imprimirLista(struct ListNode* head) {
     printf("\n");
 }
 
+void liberarLista(struct ListNode* head) {
+    struct ListNode* temp;
+
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
+
+
 int main() {
     int n;
 
@@ -91,6 +102,7 @@ int main() {
 
     printf("Lista reordenada:\n");
     imprimirLista(head);
+    liberarLista(head);
 
     return 0;
 }
