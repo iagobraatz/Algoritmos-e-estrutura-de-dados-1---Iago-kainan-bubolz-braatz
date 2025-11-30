@@ -40,14 +40,14 @@ E por fim, intercalar as duas partes nó por nó, garantindo que os “next” f
 Essas três etapas exigiram bastante cuidado com os ponteiros, e foi isso que acabou deixando o exercício mais complicado de fazer.
 
 Testes feitos
-Entrada (lista original)	         Saída (lista reordenada)                                                                                                                                                        
-1 2 3 4	                           1 4 2 3                                                                                                                             
-1 2 3 4 5	                         1 5 2 4 3                                                                                                                                                    
-10 20                            	 10 20                                                                                                                  
-7	                                 7                                                                                                                                                 
-1 2 3 4 5 6	                       1 6 2 5 3 4                                                                                                                               
-3 8 9 15 21 30 42	                 3 42 8 30 9 21 15                                                                                                                         
-5 7 9 11 13 15 17 19	             5 19 7 17 9 15 11 13                                                                                                                       
+Entrada (lista original)	            Saída (lista reordenada)                                                                                                                                                        
+1 2 3 4	                             1 4 2 3                                                                                                                             
+1 2 3 4 5	                           1 5 2 4 3                                                                                                                                                    
+10 20                            	   10 20                                                                                                                  
+7	                                   7                                                                                                                                                 
+1 2 3 4 5 6	                         1 6 2 5 3 4                                                                                                                               
+3 8 9 15 21 30 42	                   3 42 8 30 9 21 15                                                                                                                         
+5 7 9 11 13 15 17 19	                5 19 7 17 9 15 11 13                                                                                                                       
 
 ## Realização do exercício:
 [Reorder List - Iago Kainan Bubolz Braatz](https://leetcode.com/problems/reorder-list/submissions/1841999913)
