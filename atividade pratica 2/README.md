@@ -39,8 +39,8 @@ Primeiro, tinha que encontrar uma forma de identificar o meio da lista usando do
 E por fim, intercalar as duas partes nó por nó, garantindo que os “next” fossem ajustados na ordem certa. 
 Essas três etapas exigiram bastante cuidado com os ponteiros, e foi isso que acabou deixando o exercício mais complicado de fazer.
 
-Testes feitos
-Entrada (lista original) ............Saída (lista reordenada)                                                                                                                                                        
+Testes feitos                                                                                                                                                                                                        
+Entrada (lista original).............Saída (lista reordenada)                                                                                                                                                        
 1 2 3 4..............................1 4 2 3                                                                                                                             
 1 2 3 4 5............................1 5 2 4 3                                                                                                                                                    
 10 20................................10 20                                                                                                                  
