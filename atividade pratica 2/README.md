@@ -50,4 +50,4 @@ Entrada (lista original).............Saída (lista reordenada)
 5 7 9 11 13 15 17 19.................5 19 7 17 9 15 11 13                                                                                                                                              
 
 ## Realização do exercício:
-[Reorder List - Iago Kainan Bubolz Braatz](https://leetcode.com/problems/reorder-list/submissions/1841999913)
+[Reorder List - Iago Kainan Bubolz Braatz](https://leetcode.com/problems/reorder-list/submissions/)
