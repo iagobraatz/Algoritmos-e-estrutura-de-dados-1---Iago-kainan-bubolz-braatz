@@ -1,13 +1,12 @@
 bool isPalindrome(int x) {
-    if (x < 0) return false;
+    if (x < 0 || (x % 10 == 0 && x != 0)) return false;
 
-    int original = x;
-    int invertido = 0;
+    int metade = 0;
 
-    while (x > 0) {
-        invertido = invertido * 10 + (x % 10);
+    while (x > metade) {
+        metade = metade * 10 + x % 10;
         x /= 10;
     }
 
-    return original == invertido;
+    return x == metade || x == metade / 10;
 }
