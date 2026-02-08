@@ -1,15 +1,15 @@
 # Exercício prático 3 de AED1
-** Nome: Iago Kainan Bubolz Braatz**
+**Nome: Iago Kainan Bubolz Braatz**
 
-** Disciplina: Algoritmos e Estruturas de Dados I **
+**Disciplina: Algoritmos e Estruturas de Dados I**
 
-** Matrícula: 24103478 **
+**Matrícula: 24103478**
 
-** Turma: M2 **
+**Turma: M2**
 
-** Instituição de Ensino: Universidade Federal de Pelotas **
+**Instituição de Ensino: Universidade Federal de Pelotas**
 
-** Exercicio finalizado em aula **
+**Exercicio finalizado em aula**
 
 # Exercício: LeetCode: 109. Convert Sorted List to Binary Search Tree
 ## Descrição do Exercício:
@@ -25,6 +25,8 @@ Output: []
 Constraints:                                                                                                    
 The number of nodes in head is in the range [0, 2 * 104].                                                                                                                
 -105 <= Node.val <= 105                                   
+
+Complexidade: O(n log n)
 
 Minha maior dificuldade ao realizar o exercício foi pensar em como encontrar o elemento do meio da lista de forma correta usando dois ponteiros e controlar o intervalo com inicio e fim sem quebrar a lista.
 
