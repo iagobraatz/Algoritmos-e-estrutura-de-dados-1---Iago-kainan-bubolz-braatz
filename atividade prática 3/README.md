@@ -1,5 +1,5 @@
 # Exercício prático 3 de AED1
-** Nome: Iago Kainan Bubolz Braatz
+** Nome: Iago Kainan Bubolz Braatz**
 
 ** Disciplina: Algoritmos e Estruturas de Dados I **
 
