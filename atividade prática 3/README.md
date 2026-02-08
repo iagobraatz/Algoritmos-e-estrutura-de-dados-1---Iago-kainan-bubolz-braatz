@@ -1,15 +1,15 @@
 # Exercício prático 3 de AED1
-**Nome: Iago Kainan Bubolz Braatz
+** Nome: Iago Kainan Bubolz Braatz
 
-**Disciplina: Algoritmos e Estruturas de Dados I
+** Disciplina: Algoritmos e Estruturas de Dados I
 
-**Matrícula: 24103478
+** Matrícula: 24103478
 
-**Turma: M2
+** Turma: M2
 
-**Instituição de Ensino: Universidade Federal de Pelotas
+** Instituição de Ensino: Universidade Federal de Pelotas
 
-**Exercicio finalizado em aula
+** Exercicio finalizado em aula
 
 # Exercício: LeetCode: 109. Convert Sorted List to Binary Search Tree
 ##Descrição do Exercício:
@@ -28,7 +28,7 @@ The number of nodes in head is in the range [0, 2 * 104].
 
 Minha maior dificuldade ao realizar o exercício foi pensar em como encontrar o elemento do meio da lista de forma correta usando dois ponteiros e controlar o intervalo com inicio e fim sem quebrar a lista.
 
-##Testes feitos                                                                                                                                            
+## Testes feitos                                                                                                                                            
 Entrada (lista ordenada).............Saída (BST)                                                                                                                           
 [-10,-3,0,5,9]......................[0,-3,9,-10,null,5]                                                                             
 []...................................[]                                                                                                   
@@ -39,5 +39,5 @@ Entrada (lista ordenada).............Saída (BST)
 [7].......................................[7]                                                                                                                                     
 [1,2,3,4,5,6]...............................[4,2,6,1,3,5]                                                                                                                                  
 
-##Realização do exercício:
+## Realização do exercício:
 [109. Convert Sorted List to Binary Search Tree - iago braatz](https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/submissions/1910578291)
