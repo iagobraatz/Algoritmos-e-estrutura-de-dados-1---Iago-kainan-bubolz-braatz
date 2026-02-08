@@ -18,18 +18,19 @@ Given the head of a singly linked list where elements are sorted in ascending or
 Example 1:
 Input: head = [-10,-3,0,5,9]                                                                                                                                                                            
 Output: [0,-3,9,-10,null,5]                                             
-Explanation: One possible answer is [0,-3,9,-10,null,5], which represents the shown height balanced BST.
+Explanation: One possible answer is [0,-3,9,-10,null,5], which represents the shown height balanced BST.                                                                                                                   
 Example 2:
-Input: head = []
-Output: []
-Constraints:
-The number of nodes in head is in the range [0, 2 * 104].
--105 <= Node.val <= 105
+Input: head = []                                                                                                    
+Output: []                                                                                                                                  
+Constraints:                                                                                                    
+The number of nodes in head is in the range [0, 2 * 104].                                                                                                                
+-105 <= Node.val <= 105                                   
+
 Minha maior dificuldade ao realizar o exercício foi pensar em como encontrar o elemento do meio da lista de forma correta usando dois ponteiros e controlar o intervalo com inicio e fim sem quebrar a lista.
 
-Testes feitos
-Entrada (lista ordenada).............Saída (BST)
--10 -3 0 5 9..............................0 -3 9 -10 null 5
+Testes feitos                                                                                                                                            
+Entrada (lista ordenada).............Saída (BST)                                                                                                                           
+-10 -3 0 5 9..............................0 -3 9 -10 null 5                                                                                                    
 1 2 3 4 5................................3 2 5 1 null 4
 1 2 3 4..................................3 2 4 1
 10 20....................................20 10
