@@ -1,18 +1,18 @@
 # Exercício prático 3 de AED1
 ** Nome: Iago Kainan Bubolz Braatz
 
-** Disciplina: Algoritmos e Estruturas de Dados I
+** Disciplina: Algoritmos e Estruturas de Dados I **
 
-** Matrícula: 24103478
+** Matrícula: 24103478 **
 
-** Turma: M2
+** Turma: M2 **
 
-** Instituição de Ensino: Universidade Federal de Pelotas
+** Instituição de Ensino: Universidade Federal de Pelotas **
 
-** Exercicio finalizado em aula
+** Exercicio finalizado em aula **
 
 # Exercício: LeetCode: 109. Convert Sorted List to Binary Search Tree
-##Descrição do Exercício:
+## Descrição do Exercício:
 Given the head of a singly linked list where elements are sorted in ascending order, convert it to a height-balanced binary search tree.
 
 Example 1:
